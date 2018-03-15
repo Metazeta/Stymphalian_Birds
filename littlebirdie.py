@@ -14,6 +14,7 @@ from colorama import Fore, Back, Style
 from distutils.dir_util import copy_tree
 import readline
 import glob
+from shutil import copy2
 
 
 LIBFT_PATH = 'Documents/vogsphere/libft'
@@ -33,7 +34,8 @@ def gen_makefile(directory, dict_options):
 	template = env.get_template('resources/mk_template')
 	f.write(template.render(dict=dict_options))
 	f.close()
-
+	copy2(os.path.join(current, 'resources/gitignore'),
+		os.path.join(directory + '/.gitignore'))
 
 def gen_pythonfile(directory, dict_options):
 	f3 = open(os.path.join(directory, 'script', dict_options['name'] + '.py'), 'w')
@@ -43,7 +45,8 @@ def gen_pythonfile(directory, dict_options):
 	template = env.get_template('resources/python_template.py')
 	f3.write(template.render(dict=dict_options))
 	f3.close()
-
+	f2 = open(directory + '/.gitignore', 'w')
+	f2.close()
 
 def handle_c(name, directory):
 	try :
@@ -81,9 +84,6 @@ def create_folder(directory):
 	else:
 		print(Fore.GREEN + directory + ' already exists')
 		sys.exit()
-	f2 = open(directory + '/.gitignore', 'w')
-	f2.close()
-
 
 def path_completer(text,state):
 
