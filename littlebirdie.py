@@ -84,11 +84,13 @@ def create_folder(directory):
 	f2 = open(directory + '/.gitignore', 'w')
 	f2.close()
 
-def pathCompleter(text,state):
+
+def path_completer(text,state):
 
 	readline.get_line_buffer().split()
 	text = os.path.join(os.path.expanduser("~") , text)
 	return [ x for x in glob.glob(text + '*') ][state]
+
 
 def get_input():
 	print_header()
@@ -96,7 +98,7 @@ def get_input():
 	name = input('Project name: ')
 	readline.set_completer_delims('\t')
 	readline.parse_and_bind("tab: complete")
-	readline.set_completer(pathCompleter)
+	readline.set_completer(path_completer)
 	pro_folder = input('Project Folder: ')
 	create_folder(os.path.join(os.path.expanduser("~"), pro_folder))
 	print(Fore.YELLOW, end='')
